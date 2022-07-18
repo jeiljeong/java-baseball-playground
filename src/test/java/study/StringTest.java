@@ -1,8 +1,10 @@
 package study;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class StringTest {
     @Test
@@ -31,5 +33,20 @@ public class StringTest {
         String actual = given.substring(1, 4);
         // then
         assertThat(actual).isEqualTo("1,2");
+    }
+
+    @Test
+    @DisplayName("OutOfBoundException")
+    void outOfBoundException() {
+        // given
+        String given = "abc";
+        // when
+        assertThatThrownBy(() -> {
+            int i = 0;
+            while (true) {
+                given.charAt(i++);
+            }
+        }).isInstanceOf(StringIndexOutOfBoundsException.class);
+        // then
     }
 }
